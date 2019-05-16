@@ -1,4 +1,4 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 
 RUN apt-get update
 RUN apt-get -f install
@@ -8,7 +8,7 @@ RUN apt-get clean
 RUN apt-get autoremove
 
 RUN apt-get -y install git curl redis-server build-essential
-RUN apt-get -y install libssl-dev netcat jq
+RUN apt-get -y install libssl1.0-dev netcat jq
 
 RUN addgroup --gid 1000 dev
 RUN useradd -m dev --gid 1000 --uid 1000
