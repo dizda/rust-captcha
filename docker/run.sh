@@ -4,15 +4,17 @@ echo -e "\033[0;35mStarting Redis ...\033[0m"
 
 sleep 1
 
-until nc -z localhost 6379; do
-        echo "Redis not ready yet. Waiting..."
+export REDIS_HOST=redis
+
+until nc -z $REDIS_HOST 6379; do
+        echo "Redis not ready yet. Waiting... $REDIS_HOST"
         sleep 1
 done
 
 echo -e "\033[0;35mStarting CAPTCHA service ...\033[0m"
 
 export RUST_LOG=rust_captcha=info
-export REDIS_HOST=redis
+
 
 (/home/dev/rust-captcha 2>&1 | grep -v "testing") &
 sleep 1
