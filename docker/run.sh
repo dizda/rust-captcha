@@ -12,7 +12,7 @@ done
 echo -e "\033[0;35mStarting CAPTCHA service ...\033[0m"
 
 export RUST_LOG=rust_captcha=info
-export REDIS_HOST=localhost
+export REDIS_HOST=redis
 
 (/home/dev/rust-captcha 2>&1 | grep -v "testing") &
 sleep 1
