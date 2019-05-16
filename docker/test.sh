@@ -47,7 +47,7 @@ n=`echo -n $id | wc -c`
 [ $n -eq 36 ] && ok "check id" || err "check id"
 
 ## 3c) check uuid and number of tries left in redis
-json=`redis-cli --raw get X1:$id`
+json=`redis-cli -h $REDIS_HOST --raw get X1:$id`
 uuid=`echo -n $json | jq -r .uuid`
 [ "$uuid" == "$id" ] && ok "id equal" || echo "id equal"
 ## 3d)
@@ -90,7 +90,7 @@ t=$(mktemp)
 curl -s -i -H 'X-CLIENT-ID: testing' -XPOST $ADDR/new/easy/3/30 > $t
 [ `cat $t | grep "200 OK" | wc -l` -eq 1 ] && ok "new captcha status code" || err "new captcha status code"
 uuid=`cat $t | tail -n1 | jq -r .id`
-json=`redis-cli --raw get X1:$uuid`
+json=`redis-cli -h $REDIS_HOST --raw get X1:$uuid`
 solution=`echo -n $json | jq -r .solution`
 
 ## check that solution is accepted
